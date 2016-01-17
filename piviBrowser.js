@@ -5,7 +5,6 @@
   *** THIS IS A PROOF-OF-CONCEPT DESIGN. NO PRODUCTION USE! ***
 */
 module.exports = function(cnvs, data) {
-  var frameLines;
   var frameData;
   var frameCurrent;
   var frameTotal;
@@ -28,7 +27,7 @@ module.exports = function(cnvs, data) {
     frameTotal = frames.length;
 
     // Initialize the data arrays
-    frameLines = new Array(frames.length);
+    var frameLines = new Array(frames.length);
     frameData = new Array(frames.length);
     // Split the data line by line and parse it
     for (var i = 0; i < frames.length; i++) {
