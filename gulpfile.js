@@ -23,10 +23,8 @@ var libs = [
 gulp.task("build-browser", function() {
   var b = browserify('./piviBrowser.js', { standalone: 'pivi' });
 
-  for (var i = 0; i < libs.length; i++) {
-    gutil.log('Inserting ' + libs[i][0] + ' as ' + libs[i][1] + '...');
+  for (var i = 0; i < libs.length; i++)
     b.require(libs[i][0], { expose: libs[i][1] });
-  }
 
   return b.bundle()
     .on('error', function (e) {
