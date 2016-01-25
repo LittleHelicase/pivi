@@ -13,16 +13,18 @@
       "name": "Rasmus Buchmann"
     }
   ],
-  "optionalDependencies" : {
-    "canvas" : "1.2.2"
+  "optionalDependencies": {
+    "canvas": "1.2.2"
   },
   "dependencies": {
+    "browserify": "^13.0.0",
     "color-string": "^0.4.0",
     "event-stream": "^3.3.1",
     "glob": "^6.0.2",
     "lodash": "^3.8.0",
     "printf": "^0.2.1",
     "rune.js": "^0.2.13",
+    "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.9.0"
   },
   "devDependencies": {

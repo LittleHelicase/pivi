@@ -14027,6 +14027,8 @@ module.exports = function(cnvs, data) {
         frameData[i][b] = parser(frameLines[i][b]);
       }
     }
+
+    runAnimation = true;
   }
   function resetCanvas(cnvs) {
     docCtx = cnvs.getContext("2d");
@@ -14048,7 +14050,7 @@ module.exports = function(cnvs, data) {
     else
       frameCurrent++;
 
-    if (frameTotal > 1)
+    if (frameTotal > 1 && runAnimation)
       requestAnimationFrame(draw);
   }
 }
