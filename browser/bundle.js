@@ -13994,7 +13994,7 @@ module.exports = Sequence;
 
   *** THIS IS A PROOF-OF-CONCEPT DESIGN. NO PRODUCTION USE! ***
 */
-module.exports = function(cnvs, data) {
+module.exports = function(cnvs) {
   var frameData;
   var frameCurrent;
   var frameTotal;
@@ -14002,15 +14002,14 @@ module.exports = function(cnvs, data) {
   var docCnvs;
   var parser = require("./lib/grammar.js").parse;
   var dtc = require("./lib/dataToCanvas.js");
+  var anim;
+  var runAnimation = false;
 
-  initialize(cnvs, data); // prepare
-  draw();
+  // Initialize canvas
+  docCnvs = cnvs;
+  resetCanvas(docCnvs);
 
-  function initialize(cnvs, data) {
-    // Initialize canvas
-    docCnvs = cnvs;
-    resetCanvas(docCnvs);
-
+  function initialize(data) {
     // Seperate each frame into an array
     var frames = data.split("newframe");
     frameCurrent = 0;
@@ -14051,7 +14050,22 @@ module.exports = function(cnvs, data) {
       frameCurrent++;
 
     if (frameTotal > 1 && runAnimation)
-      requestAnimationFrame(draw);
+      anim = requestAnimationFrame(draw);
+  }
+  this.startAnimation = function startAnimation(data) {
+    if (runAnimation == true) {
+      runAnimation = false;
+      setTimeout(startAnimation(), 150);
+    } else {
+      initialize(data);
+      runAnimation = true;
+      anim = requestAnimationFrame(draw);
+    }
+  }
+  this.stopAnimation = function stopAnimation() {
+    cancelAnimationFrame(draw);
+    anim = undefined;
+    runAnimation = false;
   }
 }
 
