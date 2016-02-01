@@ -14026,8 +14026,6 @@ module.exports = function(cnvs) {
         frameData[i][b] = parser(frameLines[i][b]);
       }
     }
-
-    runAnimation = true;
   }
   function resetCanvas(cnvs) {
     docCtx = cnvs.getContext("2d");
@@ -14054,8 +14052,8 @@ module.exports = function(cnvs) {
   }
   this.startAnimation = function startAnimation(data) {
     if (runAnimation == true) {
-      runAnimation = false;
-      setTimeout(startAnimation(), 150);
+      this.stopAnimation();
+      setTimeout(this.startAnimation(), 150);
     } else {
       initialize(data);
       runAnimation = true;
@@ -14063,9 +14061,9 @@ module.exports = function(cnvs) {
     }
   }
   this.stopAnimation = function stopAnimation() {
-    cancelAnimationFrame(draw);
-    anim = undefined;
     runAnimation = false;
+    cancelAnimationFrame(anim);
+    anim = undefined;
   }
 }
 
