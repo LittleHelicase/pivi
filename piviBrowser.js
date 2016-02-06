@@ -1,9 +1,3 @@
-/*
-  (c) 2015 Aron Lennart Starnitzke
-  based on PiVi by LittleHelicase
-
-  *** THIS IS A PROOF-OF-CONCEPT DESIGN. NO PRODUCTION USE! ***
-*/
 module.exports = function(cnvs) {
   var frameData;
   var frameCurrent;

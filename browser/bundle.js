@@ -13988,12 +13988,6 @@ module.exports = Sequence;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
-/*
-  (c) 2015 Aron Lennart Starnitzke
-  based on PiVi by LittleHelicase
-
-  *** THIS IS A PROOF-OF-CONCEPT DESIGN. NO PRODUCTION USE! ***
-*/
 module.exports = function(cnvs) {
   var frameData;
   var frameCurrent;
