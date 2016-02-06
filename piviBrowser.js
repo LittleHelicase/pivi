@@ -63,7 +63,7 @@ module.exports = function(cnvs) {
   this.startAnimation = function startAnimation(data) {
     if (runAnimation == true) {
       this.stopAnimation();
-      setTimeout(this.startAnimation(), 150);
+      setTimeout(this.startAnimation(data), 50);
     } else {
       initialize(data);
       runAnimation = true;
