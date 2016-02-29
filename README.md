@@ -26,14 +26,12 @@ echo "polyline (0 0) (100 100) (100 0) (0 100)" | pivi
 ```
 
 # Browser
-Pivi is capable of drawing to HTML5 canvas elements. For this to work, one can work with the
+Pivi for browsers is capable of drawing to HTML5 canvas elements. For this to work, one can work with the
 following example:
-
-HTML:
 ```HTML
 <script type="text/javascript" src="bundle.js"></script>
 <script type="text/javascript">
-  animation = undefined;
+  pivi1 = undefined;
   function startAnim() {
     if (animation == undefined)
       animation = new pivi(document.getElementById('cnvs'));
@@ -51,19 +49,19 @@ HTML:
 
 Pivi resides in bundle.js consisting of all necessary modules, thus only bundle.js must be
 included to run pivi.
-Pivi is the initialised by calling it's constructor, providing the handle of the canvas to draw on.
+Pivi is then initialised by calling it's constructor, providing the handle of the canvas to draw on.
 
-Following is a table of all function available outside the scope of pivi for browsers:
+Following is a table of all functions available outside the scope of pivi for browsers:
 
 Function | Description
 -------- | -----------
-startAnimation(data) | Starts an animation with the provided pivi input data. This will auto-stop a running animation. If no more than one frame is provided, no animation is startet, but the frame is drawn nonetheless
+startAnimation(data) | Starts an animation with the provided pivi input data. This will auto-stop a running animation. If no more than one frame is provided, no animation is started, but the frame is drawn nonetheless
 stopAnimation() | Stops the currently running animation
-draw(data) | Syntactical enhancement. This is a synonym to startAnimation
-setAnimationFPS | Sets the animations frames per second.
-setAnimationInterval | Sets the interval between each frame.
-getCurrentFPS | Returns the currently archieved frames per second.
-getCurrentInterval | Returns the interval between the last and current frame.
+draw(data) | See startAnimation(data)
+setAnimationFPS | Sets the animations frames per second
+setAnimationInterval | Sets the interval between each frame
+getCurrentFPS | Returns the currently archieved frames per second
+getCurrentInterval | Returns the interval between the last and current frame
 
 # Supported Commands
 All points can be written as a tupel or you can simply omit all commas or brackets.
