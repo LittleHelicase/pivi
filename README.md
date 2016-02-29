@@ -31,7 +31,7 @@ following example:
 ```HTML
 <script type="text/javascript" src="bundle.js"></script>
 <script type="text/javascript">
-  pivi1 = undefined;
+  animation = undefined;
   function startAnim() {
     if (animation == undefined)
       animation = new pivi(document.getElementById('cnvs'));
