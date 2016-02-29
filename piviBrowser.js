@@ -9,9 +9,30 @@ module.exports = function(cnvs) {
   var anim;
   var runAnimation = false;
 
+  /* REGION Animation related */
+  var animInt = 1000 / 30;
+  var cuInt = 0;
+  var cuTime;
+  var oldTime = Date.now();
+  var dTime = 0;
+  /* ENDREGION Animation related */
+
   // Initialize canvas
   docCnvs = cnvs;
   resetCanvas(docCnvs);
+
+  this.setAnimationInterval = function setAnimationInterval(i) {
+    animInt = i;
+  }
+  this.setAnimationFPS = function setAnimationFPS(i) {
+    animInt = 1000 / i;
+  }
+  this.getCurrentInterval = function getCurrentInterval() {
+    return cuInt;
+  }
+  this.getCurrentFPS = function getCurrentFPS() {
+    return 1000 / cuInt;
+  }
 
   function initialize(data) {
     // Seperate each frame into an array
@@ -37,24 +58,52 @@ module.exports = function(cnvs) {
     docCtx.clearRect(0, 0, docCnvs.width, docCnvs.height);
   }
   function draw() {
-    // clear frame
-    docCtx.clearRect(0, 0, docCnvs.width, docCnvs.height);
+    cuTime = Date.now();
+    dTime = cuTime - oldTime;
 
-    // draw frame
-    for (var i = 0; i < frameData[frameCurrent].length; i++) {
-      dtc(docCtx, frameData[frameCurrent][i]);
+    if (dTime > animInt) {
+      cuInt = dTime;
+
+      // clear frame
+      docCtx.clearRect(0, 0, docCnvs.width, docCnvs.height);
+
+      // draw frame
+      for (var i = 0; i < frameData[frameCurrent].length; i++) {
+        dtc(docCtx, frameData[frameCurrent][i]);
+      }
+
+      // Increase frame
+      if (frameCurrent + 1 >= frameTotal)
+        frameCurrent = 0;
+      else
+        frameCurrent++;
+
+      /*
+        This will subtract the amount of time it takes to draw the frame, in
+        order for the program to have a fairly accurate FPS.
+      */
+      oldTime = cuTime - (dTime % animInt);
     }
-
-    // Increase frame
-    if (frameCurrent + 1 >= frameTotal)
-      frameCurrent = 0;
-    else
-      frameCurrent++;
 
     if (frameTotal > 1 && runAnimation)
       anim = requestAnimationFrame(draw);
   }
+  this.draw = function draw(data) {
+    /*
+     As per your request: draw can now be called using it's distinctive function.
+     It is no longer necessary to call startAnimation for a simple draw action,
+     however, startAnimation, despite it's name will not launch an animation so
+     long there is not more than one frame in the frame buffer.
+    */
+    this.startAnimation(data);
+  }
   this.startAnimation = function startAnimation(data) {
+    /*
+      If a current animation is running, this will stop the current animation,
+      wait 50ms and then start the newly provided animation.
+      Note: If the provided frame data does only contain one frame, no
+      animation will be launched.
+    */
     if (runAnimation == true) {
       this.stopAnimation();
       setTimeout(this.startAnimation(data), 50);
@@ -65,6 +114,9 @@ module.exports = function(cnvs) {
     }
   }
   this.stopAnimation = function stopAnimation() {
+    /*
+      Stops the current animation.
+    */
     runAnimation = false;
     cancelAnimationFrame(anim);
     anim = undefined;
