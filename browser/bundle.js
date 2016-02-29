@@ -14017,6 +14017,9 @@ module.exports = function(cnvs) {
   this.setAnimationFPS = function setAnimationFPS(i) {
     animInt = 1000 / i;
   }
+  this.getCurrentInterval = function getCurrentInterval() {
+    return cuInt;
+  }
   this.getCurrentFPS = function getCurrentFPS() {
     return 1000 / cuInt;
   }
@@ -14082,8 +14085,7 @@ module.exports = function(cnvs) {
      however, startAnimation, despite it's name will not launch an animation so
      long there is not more than one frame in the frame buffer.
     */
-    initialize(data);
-    draw();
+    this.startAnimation(data);
   }
   this.startAnimation = function startAnimation(data) {
     /*
