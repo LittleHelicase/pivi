@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>js test</title>
+  <script type="text/javascript" src="browser-min/bundle.js"></script>
+  <script type="text/javascript">
+    animation = undefined;
+
+    function startAnim() {
+      if (animation == undefined)
+        animation = new pivi(document.getElementById('cnvs'));
+      animation.setAnimationFPS(document.getElementById('animFPS').value);
+      animation.startAnimation(document.getElementById('txt').value);
+    }
+  </script>
+</head>
+<body>
+  <p>
+  Use "Animation" or "Frame" to load a corresponding pivi text into the input textbox.<br />
+  "Set" a desired value for FPS and click on "Start" to run an animation or draw a frame. Press "Stop" to stop it.<br />
+  It is not necssary to stop a currently running animation before starting a new one, as this is done automatically.
+  </p>
+  <textarea id="txt" cols="40" rows="5"></textarea>
+  <button id="btnStart" onClick="startAnim()">Draw</button>
+  <button id="btnStop" onClick="animation.stopAnimation()">Stop</button><br />
+  <button id="btnAnim1" onClick="document.getElementById('txt').value = 'line 0 0 400 400\nnewframe\nline 0 200 400 200\nnewframe\nline 0 400 400 0\nnewframe\nline 200 400 200 0';">Animation</button>
+  <button id="btnAnim2" onClick="document.getElementById('txt').value = 'line 0 0 400 400';">Frame</button>
+  <textarea id="animFPS" cols="20" rows="1">10</textarea>
+  <button id="btnAnimFPSSet" onClick="animation.setAnimationFPS(document.getElementById('animFPS').value);">Set</button>
+  <button id="btnGetFps" onClick="document.getElementById('animFPS').value = 'FPS: ' + animation.getCurrentFPS();">Get</button><br />
+  <canvas id="cnvs" width="400" height="400" style="border: 1px solid #000000;" /><br />
+</body>

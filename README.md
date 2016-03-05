@@ -25,6 +25,44 @@ The following program generates a zigzag line and outputs it as a PNG image.
 echo "polyline (0 0) (100 100) (100 0) (0 100)" | pivi
 ```
 
+# Browser
+Pivi for browsers is capable of drawing to HTML5 canvas elements. For this to work, one can work with the
+following example:
+```HTML
+<script type="text/javascript" src="bundle.js"></script>
+<script type="text/javascript">
+  animation = undefined;
+  function startAnim() {
+    if (animation == undefined)
+      animation = new pivi(document.getElementById('cnvs'));
+    animation.setAnimationFPS(30);
+    animation.startAnimation("line 0 0 400 400\nnewframe\nline 0 400 400 0");
+  }
+</script>
+
+...
+
+<button id="btnStart" onClick="startAnim();">Start</button>
+<button id="btnStop" onClick="animation.stopAnimation();">Stop</button><br />
+<canvas id="cnvs" width="400" height="400" style="border: 1px solid #000000;" />
+```
+
+Pivi resides in bundle.js consisting of all necessary modules, thus only bundle.js must be
+included to run pivi.
+Pivi is then initialised by calling it's constructor, providing the handle of the canvas to draw on.
+
+Following is a table of all functions available outside the scope of pivi for browsers:
+
+Function | Description
+-------- | -----------
+startAnimation(data) | Starts an animation with the provided pivi input data. This will auto-stop a running animation. If no more than one frame is provided, no animation is started, but the frame is drawn nonetheless
+stopAnimation() | Stops the currently running animation
+draw(data) | See startAnimation(data)
+setAnimationFPS | Sets the animations frames per second
+setAnimationInterval | Sets the interval between each frame
+getCurrentFPS | Returns the currently archieved frames per second
+getCurrentInterval | Returns the interval between the last and current frame
+
 # Supported Commands
 All points can be written as a tupel or you can simply omit all commas or brackets.
 - `point 1 2`
