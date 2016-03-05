@@ -9,6 +9,7 @@ var peg = require("gulp-peg");
 var gutil = require("gulp-util");
 var mocha = require("gulp-mocha");
 var clean = require("gulp-clean");
+var uglify = require("gulp-uglify");
 
 // All dynamically loaded libraries and their aliases.
 // One could do this a bit more elegant, however, this is the quick-and-dirty solution.
@@ -32,6 +33,16 @@ gulp.task("build-browser", function() {
     })
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('./browser'));
+});
+/*
+  browser-uglify must be run after all build-tasks, as it is depended on the
+  completion of the build-browser task!
+  Gulp currenlty does not support sequential tasks without external modules.
+*/
+gulp.task("browser-uglify", function() {
+  return gulp.src('./browser/bundle.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('./browser-min/'));
 });
 
 gulp.task("jshint", function(){
